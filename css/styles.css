@@ -1,0 +1,117 @@
+:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
+
+/* Layout: full-screen invitation chapters on a phone. A teal jharokha door opens onto an ivory page with a marigold toran;
+   chapters alternate ivory (bandhani dots) and peacock teal. Rajasthani, not maroon. */
+:root{
+  --teal:#073b3a;
+  --teal-2:#0d5654;
+  --marigold:#f2a516;
+  --ivory:#fff6e1;
+  --blush:#f3c9b6;
+  --rani:#b3175a;
+  --ink:#1c2b2a;
+  --display:"Rozha One","Noto Serif Devanagari",Georgia,serif;
+  --body:"Mukta","Noto Sans Devanagari",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-snap-type:y proximity;scroll-behavior:smooth}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:1.05rem;line-height:1.55;overflow-x:hidden}
+body.lock{overflow:hidden}
+
+.band{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;scroll-snap-align:start;
+  padding-block:56px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));position:relative}
+.band>.in{width:100%;max-width:400px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;min-width:0}
+.light{background-color:var(--ivory);color:var(--ink);
+  background-image:radial-gradient(circle,var(--blush) 2px,transparent 2.6px),radial-gradient(circle,var(--blush) 2px,transparent 2.6px);
+  background-size:26px 26px;background-position:0 0,13px 13px}
+.dark{background:radial-gradient(ellipse at 50% 0%,var(--teal-2),var(--teal) 70%);color:var(--ivory)}
+.dark::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.14;
+  background-image:radial-gradient(circle,var(--marigold) 1.6px,transparent 2.2px);background-size:30px 30px}
+.dark>.in{position:relative}
+
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;line-height:1.15}
+h2{font-size:2.1rem}
+.light h2{color:var(--teal)}
+.dark h2{color:var(--marigold)}
+.lead{font-size:1.05rem;max-width:34ch}
+.sans{font-family:var(--body)}
+.shloka{font-family:var(--display);line-height:1.9;font-size:1rem;color:var(--rani)}
+.dark .shloka{color:var(--marigold)}
+.fine{font-size:.92rem;opacity:.85}
+.divider{width:min(220px,70%);height:14px;background:
+  linear-gradient(var(--marigold),var(--marigold)) 0 50%/calc(50% - 14px) 1.5px no-repeat,
+  linear-gradient(var(--marigold),var(--marigold)) 100% 50%/calc(50% - 14px) 1.5px no-repeat;position:relative}
+.divider::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;background:var(--marigold);transform:translate(-50%,-50%) rotate(45deg)}
+
+/* gate */
+#gate{position:fixed;inset:0;z-index:50;perspective:1400px;overflow:hidden;background:var(--teal);
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+#gate.open{pointer-events:none;animation:gone 0s 1.6s forwards}
+@keyframes gone{to{visibility:hidden}}
+.door{position:absolute;top:0;bottom:0;width:50.2%;
+  background:
+    repeating-linear-gradient(45deg,transparent 0 22px,rgba(242,165,22,.35) 22px 23.5px),
+    repeating-linear-gradient(-45deg,transparent 0 22px,rgba(242,165,22,.35) 22px 23.5px),
+    linear-gradient(var(--teal-2),var(--teal));
+  box-shadow:inset 0 0 0 6px var(--teal),inset 0 0 0 8px var(--marigold);
+  transition:transform 1.5s cubic-bezier(.65,0,.25,1)}
+.door.l{left:0;transform-origin:left center}.door.r{right:0;transform-origin:right center}
+#gate.open .door.l{transform:rotateY(-108deg)}#gate.open .door.r{transform:rotateY(108deg)}
+.knock{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;z-index:2;transition:opacity .5s}
+#gate.open .knock{opacity:0}
+.medal{width:148px;height:148px;border-radius:50%;border:2px solid var(--marigold);background:var(--teal);color:var(--marigold);
+  font-family:var(--display);font-size:2.6rem;display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 0 0 8px var(--teal),0 0 0 10px var(--marigold),0 0 50px rgba(242,165,22,.45);animation:breathe 2.6s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.05)}}
+.medal:focus-visible,.btn:focus-visible{outline:3px solid var(--rani);outline-offset:4px}
+.knock p{color:var(--marigold);font-size:1.05rem;background:var(--teal);padding:4px 14px;border-radius:30px}
+
+/* hero */
+.toran{width:100%;max-width:420px;height:auto;display:block}
+.arch{width:min(100%,340px);background:linear-gradient(var(--teal-2),var(--teal));color:var(--ivory);
+  border-radius:999px 999px 14px 14px;padding:76px 20px 34px;display:flex;flex-direction:column;align-items:center;gap:8px;
+  box-shadow:0 0 0 4px var(--ivory),0 0 0 6px var(--marigold),0 0 0 10px var(--ivory),0 0 0 11.5px var(--teal)}
+.arch .names{font-size:clamp(2.7rem,13.5vw,3.5rem);color:var(--marigold);line-height:1.05}
+.arch .with{font-size:.95rem;letter-spacing:.14em;color:var(--blush)}
+.datebadge{background:var(--rani);color:var(--ivory);border-radius:12px;padding:12px 22px;display:flex;flex-direction:column;gap:2px;box-shadow:0 0 0 3px var(--ivory),0 0 0 4.5px var(--rani)}
+.datebadge b{font-family:var(--display);font-weight:400;font-size:1.7rem;letter-spacing:.06em}
+
+/* family */
+.parents{font-size:1.05rem;max-width:30ch}
+.names2{font-size:2.8rem;color:var(--marigold)}
+.pill{border:1.5px solid var(--marigold);border-radius:40px;padding:6px 20px;color:var(--marigold);font-family:var(--display);font-size:1.1rem}
+
+/* scratch + countdown */
+.scratch{position:relative;width:min(100%,320px);aspect-ratio:2/1;border-radius:16px;overflow:hidden;background:var(--teal);color:var(--marigold);
+  display:grid;place-items:center;box-shadow:0 0 0 3px var(--ivory),0 0 0 5px var(--marigold)}
+.scratch .rev{display:flex;flex-direction:column;gap:2px}
+.scratch .rev b{font-family:var(--display);font-weight:400;font-size:2.2rem;line-height:1.1}
+.scratch .rev span{color:var(--ivory);font-size:1rem;letter-spacing:.1em}
+.scratch canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;transition:opacity .9s}
+.scratch canvas.done{opacity:0;pointer-events:none}
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;max-width:340px}
+.cd div{background:var(--teal);color:var(--ivory);border-radius:12px;padding:10px 0}
+.cd b{display:block;font-family:var(--display);font-weight:400;font-size:1.9rem;color:var(--marigold);font-variant-numeric:tabular-nums;line-height:1.2}
+.cd small{font-size:.85rem}
+
+/* timeline */
+.days{width:100%;display:flex;flex-direction:column;gap:18px;text-align:left}
+.day h3{font-size:1.15rem;color:var(--marigold);padding-bottom:6px;border-bottom:1px solid rgba(242,165,22,.5);margin-bottom:8px}
+.ev{list-style:none;padding:0;display:flex;flex-direction:column;gap:2px;position:relative}
+.ev li{display:flex;align-items:baseline;gap:10px;padding:5px 0 5px 22px;position:relative}
+.ev li::before{content:"";position:absolute;left:3px;top:.95em;width:9px;height:9px;border-radius:50%;background:var(--marigold)}
+.ev li::after{content:"";position:absolute;left:7px;top:calc(.95em + 9px);bottom:-.95em;width:1.5px;background:rgba(242,165,22,.4)}
+.ev li:last-child::after{display:none}
+.ev .t{margin-left:auto;font-variant-numeric:tabular-nums;color:var(--marigold);font-weight:500;white-space:nowrap}
+
+/* venue */
+.venue{font-size:2.6rem;color:var(--rani)}
+.btn{display:inline-block;text-decoration:none;border:0;cursor:pointer;font:600 1.02rem var(--body);padding:12px 24px;border-radius:40px;background:var(--teal);color:var(--ivory)}
+.btn.alt{background:var(--rani)}
+.note{border:1.5px solid var(--rani);border-radius:14px;padding:10px 16px;color:var(--rani);background:var(--ivory);max-width:32ch}
+.rsvp{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;text-align:left;font-size:.95rem;background:var(--ivory);border-radius:14px;padding:14px 16px}
+.rsvp b{display:block;color:var(--teal);font-family:var(--display);font-weight:400}
+.closing{font-family:var(--display);color:var(--teal);font-size:1.45rem}
+@media (max-width:360px){.rsvp{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
